@@ -13,14 +13,16 @@ public class Server implements RecursoComp {
     	public void requestCriticalZone(int id){
 		//checar disponibilidade do bollean
 		/*
-		if(regiaoOcupada== false){
+		if(flag== false){
 		
-		&&concede o recurso
+		//guardar referencia do processo que esta na regiao critica
+		// mudar o estado da flag para true
+		
 		
 		}
-		else if(regiaoOcupada== true){
+		else if(flag == true){
 		
-		&&coloca na fila de requisicao
+		//LINKEDLIST.add(id);
 		
 		}
 
@@ -30,7 +32,7 @@ public class Server implements RecursoComp {
 	//mostra a fila de processos que estao na espera pela regiao critica
 	public void displayQueue(){
 	
-	//System.out.println(fila_de_requisicoes);
+	//System.out.println(fila_de_requisicoes  AKA LINKEDLIST);
 	
 	
 	}
@@ -45,6 +47,8 @@ public class Server implements RecursoComp {
 		else if(regiaoOcupada== true){
 		
 		System.out.println(regiao critica esta em uso);
+		//pode falar qual id do processo que esta utilizando a regiao critica
+	
 		
 		}
 
