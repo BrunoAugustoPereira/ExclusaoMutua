@@ -5,10 +5,12 @@ import java.rmi.server.UnicastRemoteObject;
         
 public class Server implements RecursoComp {
         
+    private boolean flag = false;
     public Server() {}
+
 	
 	//requisicao da regiao critica tendo como parametro o id client
-    	public void requestCriticalZone(int id) throws RemoteException {
+    	public void requestCriticalZone(int id){
 		//checar disponibilidade do bollean
 		/*
 		if(regiaoOcupada== false){
@@ -26,13 +28,13 @@ public class Server implements RecursoComp {
 	}
 	
 	//mostra a fila de processos que estao na espera pela regiao critica
-	public void displayQueue() throws RemoteException{
+	public void displayQueue(){
 	
 	//System.out.println(fila_de_requisicoes);
 	
 	
 	}
-	public void displayStatus() throws RemoteException{
+	public void displayStatus(){
 	
 		/*
 		if(regiaoOcupada== false){
@@ -47,12 +49,18 @@ public class Server implements RecursoComp {
 		}
 
 		*/
-	
-	
-	
 	}
 	
-	
+	public void operation(int id, String key) throws RemoteException {
+		if (key.equals("1")) 
+			requestCriticalZone(id); //ver como pegar id
+		if (key.equals("2")) 
+			displayQueue();
+		if (key.equals("3")) 
+			displayStatus();
+		if (key.equals("x")) 
+			displayStatus();//finaliza processo
+	}
 	
 	
         
