@@ -4,54 +4,45 @@ import java.rmi.RemoteException;
 import java.rmi.server.RemoteServer;
 import java.rmi.server.ServerNotActiveException;
 import java.rmi.server.UnicastRemoteObject;
+
+import java.util.LinkedList;
         
 public class Server implements RecursoComp {
         
-    private boolean flag = false;
+    private boolean regiaoOcupada = false;
+    protected String ocupante;
+    protected LinkedList<String> fila_de_requisicoes= new LinkedList<String>();
     public Server() {}
 
 	
 	//requisicao da regiao critica tendo como parametro o id client
     	public void requestCriticalZone(String id){
-		//checar disponibilidade do bollean
-		/*
-		if(regiaoOcupada== false){
-		
-		&&concede o recurso
-		
+		if(regiaoOcupada == false) {
+			ocupante = fila_de_requisicoes.getFirst();
+			fila_de_requisicoes.remove(); //deleta o primeiro da fila
 		}
-		else if(regiaoOcupada== true){
-		
-		&&coloca na fila de requisicao
-		
+		else if(regiaoOcupada == true) {
+			fila_de_requisicoes.add(id);
 		}
-
-		*/
 	}
 	
 	//mostra a fila de processos que estao na espera pela regiao critica
 	public void displayQueue(){
-	
-	//System.out.println(fila_de_requisicoes);
-	
-	
+		for(Object o : fila_de_requisicoes){
+    		System.out.println(o);
+		}	
 	}
 	public void displayStatus(){
 	
-		/*
-		if(regiaoOcupada== false){
-		
-		System.out.println(regiao critica esta disponivel);
-		
-		}
-		else if(regiaoOcupada== true){
-		
-		System.out.println(regiao critica esta em uso);
-		
-		}
-
-		*/
+		if(regiaoOcupada == false)
+			System.out.println("Regiao critica esta disponivel ! ");
+		else if (regiaoOcupada == true)
+			System.out.println("Regiao critica NAO esta disponivel ! ");
+		else
+			System.out.println("Status desconhecido");
 	}
+
+	public void quit() {}
 	
 	public void operation(String key) throws RemoteException {
 		
@@ -70,7 +61,7 @@ public class Server implements RecursoComp {
 		if (key.equals("3")) 
 			displayStatus();
 		if (key.equals("x")) 
-			displayStatus();//finaliza processo
+			quit(); //finaliza processo
 	}
 	
 	
