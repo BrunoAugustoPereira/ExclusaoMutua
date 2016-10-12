@@ -19,7 +19,7 @@ public class Cliente{
             while(looping) {
                 String key = br.readLine();
                 try {
-                    stub.operation(0,key); //id + string, como a gente consegue o id?
+                    stub.operation(key); //id + string, como a gente consegue o id?
                 } catch (Exception e) {
                 System.err. println("Client exception: " + e.toString());
                 e.printStackTrace();

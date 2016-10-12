@@ -1,6 +1,8 @@
 import java.rmi.registry.Registry;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.RemoteException;
+import java.rmi.server.RemoteServer;
+import java.rmi.server.ServerNotActiveException;
 import java.rmi.server.UnicastRemoteObject;
         
 public class Server implements RecursoComp {
@@ -10,7 +12,7 @@ public class Server implements RecursoComp {
 
 	
 	//requisicao da regiao critica tendo como parametro o id client
-    	public void requestCriticalZone(int id){
+    	public void requestCriticalZone(String id){
 		//checar disponibilidade do bollean
 		/*
 		if(regiaoOcupada== false){
@@ -51,9 +53,18 @@ public class Server implements RecursoComp {
 		*/
 	}
 	
-	public void operation(int id, String key) throws RemoteException {
-		if (key.equals("1")) 
-			requestCriticalZone(id); //ver como pegar id
+	public void operation(String key) throws RemoteException {
+		
+		if (key.equals("1")) {
+			try {
+	       		String clientHost = RemoteServer.getClientHost();
+	       		requestCriticalZone(clientHost); //ver como pegar id
+	       		System.out.println("clientHost : "+clientHost);
+	    	} catch (ServerNotActiveException e) {
+	    		System.err.println("Server exception: " + e.toString());
+            	e.printStackTrace();
+	    	}
+		}
 		if (key.equals("2")) 
 			displayQueue();
 		if (key.equals("3")) 
