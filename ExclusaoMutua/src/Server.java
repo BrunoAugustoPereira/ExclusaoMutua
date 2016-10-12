@@ -6,9 +6,19 @@ import java.rmi.server.UnicastRemoteObject;
 public class Server implements Calculator {
         
     public Server() {}
+	
+	//requisicao da regiao critica tendo como parametro o id client
+    public void requestCriticalZone(int id) throws RemoteException {
+		//checar disponibilidade do bollean
+		/*
+		if(regiaoOcupada== false){
+		concede o recurso
+		}
+		else if(regiaoOcupada== true){
+		coloca na fila de requisicao
+		}
 
-    public int add(int a, int b) throws RemoteException {
-		return a+b;
+		*/
 	}
 	public int sub(int a, int b) throws RemoteException {
 		return a-b;
