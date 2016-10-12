@@ -2,10 +2,14 @@ import java.rmi.registry.Registry;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.LinkedList;
         
 public class Server implements RecursoComp {
         
     private boolean flag = false;
+    private LinkedList queue = new LinkedList();
+    private int IdCurrent;
+	
     public Server() {}
 
 	
@@ -16,13 +20,16 @@ public class Server implements RecursoComp {
 		if(flag== false){
 		
 		//guardar referencia do processo que esta na regiao critica
+		IdCurrent=id;
 		// mudar o estado da flag para true
+		flag=true;
 		
 		
 		}
 		else if(flag == true){
 		
 		//LINKEDLIST.add(id);
+		queue.add(id);
 		
 		}
 
@@ -33,7 +40,7 @@ public class Server implements RecursoComp {
 	public void displayQueue(){
 	
 	//System.out.println(fila_de_requisicoes  AKA LINKEDLIST);
-	
+		System.out.println(queue);
 	
 	}
 	public void displayStatus(){
@@ -46,7 +53,7 @@ public class Server implements RecursoComp {
 		}
 		else if(regiaoOcupada== true){
 		
-		System.out.println(regiao critica esta em uso);
+		System.out.println(regiao critica esta em uso+);
 		//pode falar qual id do processo que esta utilizando a regiao critica
 	
 		
