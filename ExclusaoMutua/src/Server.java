@@ -68,13 +68,13 @@ public class Server implements RecursoComp {
 		}
 	}
 	
-	public void operation(String key) throws RemoteException {
+	public void operation(String key, String ID) throws RemoteException {
 		
 		if (key.equals("1")) {
 			try {
-	       		String clientHost = RemoteServer.getClientHost();
-	       		requestCriticalZone(clientHost); //ver o gerador de id que usa o ip
-	       		System.out.println("clientHost : "+clientHost);
+	       		//String clientHost = RemoteServer.getClientHost();
+	       		requestCriticalZone(ID); //ver o gerador de id que usa o ip
+	       		System.out.println("clientHost : "+ID);
 	    	} catch (ServerNotActiveException e) {
 	    		System.err.println("Server exception: " + e.toString());
             	e.printStackTrace();
