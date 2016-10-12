@@ -3,6 +3,6 @@ import java.rmi.RemoteException;
 
 public interface RecursoComp extends Remote {
   
-  public void operation(String key) throws RemoteException;
+  public void operation(String key, String ID) throws RemoteException;
 
 }
