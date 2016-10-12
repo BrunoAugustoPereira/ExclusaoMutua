@@ -57,7 +57,16 @@ public class Server implements RecursoComp {
 			System.out.println("Status desconhecido");
 	}
 
-	public void quit() {}
+	public void quit() {
+		regiaoOcupada = false;
+		System.out.println("Regiao Critica Liberada");
+		if (fila_de_requisicoes.size()>0){
+			ocupante = fila_de_requisicoes.getFirst();
+			fila_de_requisicoes.remove(); //deleta o primeiro da fila
+			regiaoOcupada = true;
+			System.out.println("Acesso a Regiao critica concedido ao processo: "+ ocupante);
+		}
+	}
 	
 	public void operation(String key) throws RemoteException {
 		
