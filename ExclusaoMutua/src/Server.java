@@ -48,12 +48,12 @@ public class Server implements RecursoComp {
 		/*
 		if(regiaoOcupada== false){
 		
-		System.out.println(regiao critica esta disponivel);
+		System.out.println("regiao critica esta disponivel");
 		
 		}
 		else if(regiaoOcupada== true){
 		
-		System.out.println(regiao critica esta em uso+);
+		System.out.println("regiao critica esta em uso pelo cliente: "+IdCurrent);
 		//pode falar qual id do processo que esta utilizando a regiao critica
 	
 		
