@@ -8,18 +8,50 @@ public class Server implements Calculator {
     public Server() {}
 	
 	//requisicao da regiao critica tendo como parametro o id client
-    public void requestCriticalZone(int id) throws RemoteException {
+    	public void requestCriticalZone(int id) throws RemoteException {
 		//checar disponibilidade do bollean
 		/*
 		if(regiaoOcupada== false){
-		concede o recurso
+		
+		&&concede o recurso
+		
 		}
 		else if(regiaoOcupada== true){
-		coloca na fila de requisicao
+		
+		&&coloca na fila de requisicao
+		
 		}
 
 		*/
 	}
+	
+	//mostra a fila de processos que estao na espera pela regiao critica
+	public void displayQueue() throws RemoteException{
+	
+	//System.out.println(fila_de_requisicoes);
+	
+	
+	}
+	public void displayStatus() throws RemoteException{
+	
+		/*
+		if(regiaoOcupada== false){
+		
+		System.out.println(regiao critica esta disponivel);
+		
+		}
+		else if(regiaoOcupada== true){
+		
+		System.out.println(regiao critica esta em uso);
+		
+		}
+
+		*/
+	
+	
+	
+	}
+	
 	public int sub(int a, int b) throws RemoteException {
 		return a-b;
 	}
