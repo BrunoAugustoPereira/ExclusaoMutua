@@ -16,45 +16,47 @@ public class Server implements RecursoComp {
     public Server() {}
 
     	public void requestCriticalZone(String id){
-		System.out.println("Acesso a Regiao critica solicitado pelo processo: "+ id);
-		if(regiaoOcupada == false) {
-			if (fila_de_requisicoes.size()>0){
+			System.out.println("Acesso a Regiao critica solicitado pelo processo: "+ id);
+			//if (id.equals(ocupante) || fila_de_requisicoes.contains(id))
+			//	System.out.println("Acesso a Regiao critica negado ao processo: "+ id);
+			if(regiaoOcupada == false) {
+				if (fila_de_requisicoes.size()>0){
+					fila_de_requisicoes.add(id);
+					ocupante = fila_de_requisicoes.getFirst();
+					fila_de_requisicoes.remove(); //deleta o primeiro da fila
+					regiaoOcupada = true;
+					System.out.println("Acesso a Regiao critica negado ao processo: "+ id+" adicionado a fila de requisicoes");
+					System.out.println("Processo na Regiao critica: "+ ocupante);
+
+				}
+				else if (fila_de_requisicoes.size()==0){
+					ocupante = id;
+					regiaoOcupada = true;
+					System.out.println("Acesso a Regiao critica concedido ao processo: "+ id);
+				}
+			}
+			else if(regiaoOcupada == true) {
 				fila_de_requisicoes.add(id);
-				ocupante = fila_de_requisicoes.getFirst();
-				fila_de_requisicoes.remove(); //deleta o primeiro da fila
-				regiaoOcupada = true;
 				System.out.println("Acesso a Regiao critica negado ao processo: "+ id+" adicionado a fila de requisicoes");
-				System.out.println("Acesso a Regiao critica concedido ao processo: "+ ocupante);
 			}
-			else if (fila_de_requisicoes.size()==0){
-			ocupante = id;
-			regiaoOcupada = true;
-			System.out.println("Acesso a Regiao critica concedido ao processo: "+ id);
-			}
-			
-			
-			
-		}
-		else if(regiaoOcupada == true) {
-			fila_de_requisicoes.add(id);
-			System.out.println("Acesso a Regiao critica negado ao processo: "+ id+" adicionado a fila de requisicoes");
-		}
 	}
 	
-	//mostra a fila de processos que estao na espera pela regiao critica
 	public void displayQueue(){
 		for(Object o : fila_de_requisicoes){
     		System.out.println(o);
 		}	
-	}
-	public void displayStatus(){
-	
+	}	
+	public String displayStatus(String id) {
+		String response = "";
 		if(regiaoOcupada == false)
-			System.out.println("Regiao critica esta disponivel ! ");
-		else if (regiaoOcupada == true)
-			System.out.println("Regiao critica NAO esta disponivel ! ");
+			response = "Liberado \n";
+		else if(ocupante.equals(id))
+			response = "Obtido \n";
+		else if(fila_de_requisicoes.contains(id))
+			response = "Espera \n";
 		else
-			System.out.println("Status desconhecido");
+			response = "Recurso nao solicitado \n";
+		return response;
 	}
 
 	public void quit() {
@@ -62,30 +64,30 @@ public class Server implements RecursoComp {
 		System.out.println("Regiao Critica Liberada");
 		if (fila_de_requisicoes.size()>0){
 			ocupante = fila_de_requisicoes.getFirst();
-			fila_de_requisicoes.remove(); //deleta o primeiro da fila
+			fila_de_requisicoes.remove(); 
 			regiaoOcupada = true;
 			System.out.println("Acesso a Regiao critica concedido ao processo: "+ ocupante);
 		}
 	}
 	
-	public void operation(String key, String ID) throws RemoteException {
+	public String operation(String key, String id) throws RemoteException {
 		
+		String response = "";
 		if (key.equals("1")) {
 			try {
-	       		//String clientHost = RemoteServer.getClientHost();
-	       		requestCriticalZone(ID); //ver o gerador de id que usa o ip
-	       		System.out.println("clientHost : "+ID);
-	    	} catch (ServerNotActiveException e) {
+	       		requestCriticalZone(id); 
+	    	} catch (Exception e) {
 	    		System.err.println("Server exception: " + e.toString());
             	e.printStackTrace();
 	    	}
 		}
 		if (key.equals("2")) 
 			displayQueue();
-		if (key.equals("3")) 
-			displayStatus();
+		if (key.equals("3"))
+			response = displayStatus(id);
 		if (key.equals("x")) 
-			quit(); //finaliza processo
+			 quit(); 
+		return response;
 	}
 	     
     public static void main(String args[]) {
