@@ -5,7 +5,6 @@ import java.io.*;
 public class Cliente{
 
     private Cliente() {}
-    public String id;
 
     public static void main(String[] args) {
 
@@ -13,13 +12,13 @@ public class Cliente{
         try {
             boolean looping=true;
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-            Registry registry = LocateRegistry.getRegistry(host, 1099); //host, port
+            Registry registry = LocateRegistry.getRegistry(host, 1099); //host, porta
             RecursoComp stub = (RecursoComp) registry.lookup("RecursoComp");
 
-            System.out.println("entre com o Identificador para esse processo");
+            System.out.println("Entre com o Identificador para esse processo");
             String id = br.readLine();
 
-            System.out.println("[1] solicitar recurso [2] ver fila [3] ver status do recurso [x] sair");
+            System.out.println("[1] solicitar, [2] ver fila de requisicoes, [3] ver status ou [x] liberar recurso");
             while(looping) {
                 String key = br.readLine();
                 try {
